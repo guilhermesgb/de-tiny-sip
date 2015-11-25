@@ -1,11 +1,10 @@
 apply plugin: 'com.android.application'
-
 android {
     compileSdkVersion 21
     buildToolsVersion "23.0.1"
 
     defaultConfig {
-        applicationId "de.tinysip.sipdemo"
+        applicationId "android.de.tinysip.sipdemo"
         minSdkVersion 7
         targetSdkVersion 7
     }
@@ -16,4 +15,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
         }
     }
+}
+
+dependencies {
+    compile files('libs/log4j-1.2.16.jar')
+    compile files('libs/slf4j-api-1.7.13.jar')
 }
