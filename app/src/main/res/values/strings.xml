@@ -10,4 +10,13 @@
     <string name="SIPInvite">Sending SIP Invite to </string>
     <string name="STUNDiscovery">Starting STUN Discovery</string>
     <string name="STUNNotSupported">NAT does not allow SIP connections</string>
+    <string name="title_activity_basic_sip_app">BasicSipAppActivity</string>
+
+    <string name="username">Username:</string>
+    <string name="user_address">Address:</string>
+    <string name="contact_username">Contact Username:</string>
+    <string name="contact_address">Contact Address:</string>
+    <string name="events">Events</string>
+    <string name="chat">Chat</string>
+    <string name="action_settings">Settings</string>
 </resources>
