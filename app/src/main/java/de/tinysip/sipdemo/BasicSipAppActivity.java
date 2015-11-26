@@ -28,6 +28,7 @@ import de.tinysip.stun.STUNDiscoveryResultEvent;
 import de.tinysip.stun.STUNDiscoveryResultListener;
 import de.tinysip.stun.STUNDiscoveryTask;
 import de.tinysip.stun.STUNInfo;
+
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -36,9 +37,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 
-
 public class BasicSipAppActivity extends Activity implements STUNDiscoveryResultListener, SipManagerStatusListener {
-
 
 
     private Button register;
@@ -89,6 +88,15 @@ public class BasicSipAppActivity extends Activity implements STUNDiscoveryResult
             }
         });
 
+        invite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sendSipInvite();
+                scrollSipEventsTextView();
+                scrollSipChatTextView();
+            }
+        });
+
 //        unregister;
 //        invite;
     }
@@ -114,34 +122,39 @@ public class BasicSipAppActivity extends Activity implements STUNDiscoveryResult
     }
 
     private String getSipUsername() {
-        if( null != sipUsernameEditText && sipUsernameEditText.getText() != null && sipUsernameEditText.getText().length() > 0) {
-            Log.d("getSipUsername", ""+ sipUsernameEditText.getText().toString());
+        Log.d("BasicSipAppActivity", " sipUsernameEditText == NULL? " + (sipUsernameEditText == null ? "YES" : "NO"));
+        if (null != sipUsernameEditText && sipUsernameEditText.getText() != null && sipUsernameEditText.getText().length() > 0) {
+            Log.d("getSipUsername", "" + sipUsernameEditText.getText().toString());
             return sipUsernameEditText.getText().toString();
         } else {
+            Log.d("BasicSipAppActivity", "Interface com bug");
             return "6001";
         }
     }
 
     private String getSipUserAddress() {
-        if( null != sipUserAddressEditText && sipUserAddressEditText.getText() != null && sipUserAddressEditText.getText().length() > 0) {
+        if (null != sipUserAddressEditText && sipUserAddressEditText.getText() != null && sipUserAddressEditText.getText().length() > 0) {
             return sipUserAddressEditText.getText().toString();
         } else {
+            Log.d("BasicSipAppActivity", "Interface com bug");
             return "192.168.132.80";
         }
     }
 
     private String getSipContactUsername() {
-        if( null != sipContactUsernameEditText && sipContactUsernameEditText.getText() != null && sipContactUsernameEditText.getText().length() > 0) {
+        if (null != sipContactUsernameEditText && sipContactUsernameEditText.getText() != null && sipContactUsernameEditText.getText().length() > 0) {
             return sipContactUsernameEditText.getText().toString();
         } else {
+            Log.d("BasicSipAppActivity", "Interface com bug");
             return "6002";
         }
     }
 
     private String getSipContactAddress() {
-        if( null != sipContactAddressEditText && sipContactAddressEditText.getText() != null && sipContactAddressEditText.getText().length() > 0) {
+        if (null != sipContactAddressEditText && sipContactAddressEditText.getText() != null && sipContactAddressEditText.getText().length() > 0) {
             return sipContactAddressEditText.getText().toString();
         } else {
+            Log.d("BasicSipAppActivity", "Interface com bug");
             return "192.168.132.80";
         }
     }
@@ -155,6 +168,7 @@ public class BasicSipAppActivity extends Activity implements STUNDiscoveryResult
         InetAddress address = SipManager.getInetAddress();
         localSipProfile = new LocalSipProfile(getSipUsername(), address);
 
+        Log.d("registerOnSipServer", ""+localSipProfile.toString());
         // create a list of supported audio formats for the local user agent
         ArrayList<SipAudioFormat> audioFormats = new ArrayList<SipAudioFormat>();
         audioFormats.add(new SipAudioFormat(SdpConstants.PCMA, "PCMA", 8000));
@@ -190,8 +204,23 @@ public class BasicSipAppActivity extends Activity implements STUNDiscoveryResult
         }
     }
 
+    private void sendSipInvite() {
+        if (sipManager.getCurrentState() == SipManagerState.READY) {
+            if ((localSipProfile.isLocalProfile() && sipContact.isLocalContact()) || !(localSipProfile.isLocalProfile() && sipContact.isLocalContact())) {
+                sipEventsTextView.append("\n" + getString(R.string.SIPInvite) + " " + sipContact.toString());
+                try {
+                    sipManager.sendInvite(sipContact);
+                } catch (Exception e) {
+                    sipEventsTextView.append("\n" + getString(R.string.SIPRegistering));
+                }
+            }
+        }
+    }
 
-    /** Called when the activity is first created. */
+
+    /**
+     * Called when the activity is first created.
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -209,12 +238,20 @@ public class BasicSipAppActivity extends Activity implements STUNDiscoveryResult
 
                 switch (state) {
                     case IDLE:
+                        sipEventsTextView.append("\n" + "SIP MANAGER STATE - IDLE");
+                        Log.d("BasicSipAppActivity - SipManagerStatusChanged", "SIP MANAGER STATE - IDLE");
                         break;
                     case RINGING:
+                        sipEventsTextView.append("\n" + "SIP MANAGER STATE - RINGING");
+                        Log.d("BasicSipAppActivity - SipManagerStatusChanged", "SIP MANAGER STATE - RINGING");
                         break;
                     case ESTABLISHED:
+                        sipEventsTextView.append("\n" + "SIP MANAGER STATE - ESTABLISHED");
+                        Log.d("BasicSipAppActivity - SipManagerStatusChanged", "SIP MANAGER STATE - ESTABLISHED");
                         break;
                     case INCOMING:
+                        sipEventsTextView.append("\n" + "SIP MANAGER STATE - INCOMING");
+                        Log.d("BasicSipAppActivity - SipManagerStatusChanged", "SIP MANAGER STATE - INCOMING");
                         try {
                             Thread.sleep(3000);
                             sipManager.acceptCall();
@@ -238,29 +275,33 @@ public class BasicSipAppActivity extends Activity implements STUNDiscoveryResult
                         }
                         break;
                     case ERROR:
+                        sipEventsTextView.append("\n" + "SIP MANAGER STATE - ERROR");
+                        Log.d("BasicSipAppActivity - SipManagerStatusChanged", "SIP MANAGER STATE - ERROR");
                         break;
                     case UNREGISTERING:
+                        sipEventsTextView.append("\n" + "SIP MANAGER STATE - UNREGISTERING");
+                        Log.d("BasicSipAppActivity - SipManagerStatusChanged", "SIP MANAGER STATE - UNREGISTERING");
                         sipEventsTextView.append("\n" + getString(R.string.SIPUnregistering));
                         break;
                     case TIMEOUT:
+                        sipEventsTextView.append("\n" + "SIP MANAGER STATE - TIMEOUT");
+                        Log.d("BasicSipAppActivity - SipManagerStatusChanged", "SIP MANAGER STATE - TIMEOUT");
                         break;
                     case READY:
+                        sipEventsTextView.append("\n" + "SIP MANAGER STATE - READY");
+                        Log.d("BasicSipAppActivity - SipManagerStatusChanged", "SIP MANAGER STATE - READY");
                         localSipProfile = sipManager.getLocalSipProfile();
                         sipEventsTextView.append("\n" + getString(R.string.SIPReady));
                         sipEventsTextView.append("\n" + localSipProfile.toString());
-                        if ((localSipProfile.isLocalProfile() && sipContact.isLocalContact()) || !(localSipProfile.isLocalProfile() && sipContact.isLocalContact())) {
-                            sipEventsTextView.append("\n" + getString(R.string.SIPInvite) + " " + sipContact.toString());
-                            try {
-                                sipManager.sendInvite(sipContact);
-                            } catch (Exception e) {
-                                sipEventsTextView.append("\n" + getString(R.string.SIPRegistering));
-                            }
-                        }
                         break;
                     case REGISTERING:
+                        sipEventsTextView.append("\n" + "SIP MANAGER STATE - REGISTERING");
+                        Log.d("BasicSipAppActivity - SipManagerStatusChanged", "SIP MANAGER STATE - REGISTERING");
                         sipEventsTextView.append("\n" + getString(R.string.SIPRegistering));
                         break;
                     default:
+                        sipEventsTextView.append("\n" + "SIP MANAGER STATE - DEFAULT");
+                        Log.d("BasicSipAppActivity - SipManagerStatusChanged", "SIP MANAGER STATE - DEFAULT");
                         break;
                 }
             }

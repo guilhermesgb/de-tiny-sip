@@ -135,6 +135,10 @@ public class SipManager implements SipListener {
 		}
 	}
 
+	public SipManagerState getCurrentState() {
+		return currentState;
+	}
+
 	/**
 	 * Start calling the specified SipContact.
 	 * 
