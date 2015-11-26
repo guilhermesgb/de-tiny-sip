@@ -288,19 +288,19 @@ public class LogWriter {
 		this.configurationProperties = configurationProperties;
 
 		String logLevel = configurationProperties
-				.getProperty("gov.nist.javax.sip.TRACE_LEVEL");
+				.getProperty("android.gov.nist.gnjvx.sip.TRACE_LEVEL");
 
 		this.logFileName = configurationProperties
-				.getProperty("gov.nist.javax.sip.DEBUG_LOG");
+				.getProperty("android.gov.nist.gnjvx.sip.DEBUG_LOG");
 
 		this.stackName = configurationProperties
-				.getProperty("javax.sip.STACK_NAME");
+				.getProperty("android.javax.sip.STACK_NAME");
 
 		//check whether a Log4j logger name has been
 		//specified. if not, use the stack name as the default
 		//logger name.
 		String category = configurationProperties
-								.getProperty("gov.nist.javax.sip.LOG4J_LOGGER_NAME", this.stackName);
+								.getProperty("android.gov.nist.gnjvx.sip.LOG4J_LOGGER_NAME", this.stackName);
 
 
 		logger = Logger.getLogger(category);
@@ -358,7 +358,7 @@ public class LogWriter {
 
 					boolean overwrite = Boolean.valueOf(
 						configurationProperties.getProperty(
-								"gov.nist.javax.sip.DEBUG_LOG_OVERWRITE"));
+								"android.gov.nist.gnjvx.sip.DEBUG_LOG_OVERWRITE"));
 
 					FileAppender fa = null;
 					try {

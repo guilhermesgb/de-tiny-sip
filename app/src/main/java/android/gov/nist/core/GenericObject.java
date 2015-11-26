@@ -103,7 +103,7 @@ public abstract class GenericObject implements Serializable, Cloneable {
 	 * that is a match template of null matches any parsed SIP object.
 	 * To match with any subfield, set the match template on a template object
 	 * of the same type and invoke the match interface.
-	 * Regular expressions matching implements the gov.nist.sip.Match interface
+	 * Regular expressions matching implements the android.gov.nist.sip.Match interface
 	 * that can be done using the Jakarta regexp package for example.
 	 * package included herein. This can be used to implement the Match interface
 	 * <a href=http://www.apache.org> See the APACHE website for documents </a>

@@ -1,8 +1,8 @@
 /**
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  * Unpublished - rights reserved under the Copyright Laws of the United States.
- * Copyright C 2003 Sun Microsystems, Inc. All rights reserved.
- * Copyright C 2005 BEA Systems, Inc. All rights reserved.
+ * Copyright (C) 2003 Sun Microsystems, Inc. All rights reserved.
+ * Copyright (C) 2005 BEA Systems, Inc. All rights reserved.
  *
  * Use is subject to license terms.
  *
@@ -406,7 +406,7 @@ public interface Request extends Message {
     * INFO message header or as part of a message body. There are no specific 
     * semantics associated with INFO. The semantics are derived from the body 
     * or new headers defined for usage in INFO. JAIN SIP provides the 
-    * facility to send {@link javax.sip.header.ExtensionHeader} in messages. 
+    * facility to send {@link android.javax.sip.header.ExtensionHeader} in messages. 
     * The INFO request MAY contain a message body. Bodies which imply a change 
     * in the SIP call state or the sessions initiated by SIP MUST NOT be sent 
     * in an INFO message. 

@@ -39,17 +39,17 @@ import android.javax.sip.header.*;
  * representing a SIP stack compliant to this specification that interacts 
  * directly with a proprietary implementation of a SIP stack.
  * This interface defines the methods that enable any registered
- * application implementing the {@link javax.sip.SipListener} interface to:
+ * application implementing the {@link android.javax.sip.SipListener} interface to:
  * <ul>
- *    <li> Register a {@link javax.sip.SipListener} to the SipProvider. Once 
+ *    <li> Register a {@link android.javax.sip.SipListener} to the SipProvider. Once 
  *    the SipListener is registered with the SipProvider it will get notified 
  *    of Events representing either Request, Response, Timeout messages, Network 
  *    errors and Transaction termination.
- *    <li> De-register a {@link javax.sip.SipListener} from the SipProvider. 
+ *    <li> De-register a {@link android.javax.sip.SipListener} from the SipProvider. 
  *    Once a SipListener is de-registered, it will no longer receive any Events 
  *    from that SipProvider.
- *    <li> Send {@link javax.sip.message.Request}'s statelessly.
- *    <li> Send {@link javax.sip.message.Response}'s statelessly.
+ *    <li> Send {@link android.javax.sip.message.Request}'s statelessly.
+ *    <li> Send {@link android.javax.sip.message.Response}'s statelessly.
  *    <li> Client and Server Transaction creation methods. 
  *    <li> Listening Point manipulation methods.
  *    <li> New CallIdHeader accessor method.
@@ -523,7 +523,7 @@ public interface SipProvider {
 	 * Enable or disable automatic dialog creation for this Provider. By
 	 * default, each provider inherits the automatic dialog support property
 	 * from the stack(i.e. the value implied by the stack configuration property
-	 * javax.sip.AUTOMATIC_DIALOG_SUPPORT) . This method allows for selective
+	 * android.javax.sip.AUTOMATIC_DIALOG_SUPPORT) . This method allows for selective
 	 * overriding of the stack-wide property on a per provider basis. This is
 	 * useful for applications that need to support both user agent and proxy
 	 * functionality in a single stack such as IMS applications and 3rd party

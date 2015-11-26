@@ -1,8 +1,8 @@
 /**
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  * Unpublished - rights reserved under the Copyright Laws of the United States.
- * Copyright C 2003 Sun Microsystems, Inc. All rights reserved.
- * Copyright C 2005 BEA Systems, Inc. All rights reserved.
+ * Copyright (C) 2003 Sun Microsystems, Inc. All rights reserved.
+ * Copyright (C) 2005 BEA Systems, Inc. All rights reserved.
  *
  * Use is subject to license terms.
  *
@@ -37,26 +37,26 @@ import java.util.ListIterator;
  * <p>For backwards compatibility reasons, the default behavior of the stack is 
  * to consult the application provided Router implementation for all requests
  * outside of a dialog. This is controlled through the stack property 
- * <code>javax.sip.USE_ROUTER_FOR_ALL_URIS</code> which defaults to <code>true</code> 
+ * <code>android.javax.sip.USE_ROUTER_FOR_ALL_URIS</code> which defaults to <code>true</code> 
  * when not set.
  * 
  * <p>This specification recommends to set the stack property 
- * <code>javax.sip.USE_ROUTER_FOR_ALL_URIS</code> to
+ * <code>android.javax.sip.USE_ROUTER_FOR_ALL_URIS</code> to
  * <code>false</code>. This will cause the stack to only consult the application
  * provided Router implementation for requests with a non-SIP URI as request URI 
  * (such as tel: or pres:) and without Route headers. This enables an application 
  * to implement DNS lookups and other resolution algorithms
  * 
- * <p>When <code>javax.sip.USE_ROUTER_FOR_ALL_URIS</code> is set to 
+ * <p>When <code>android.javax.sip.USE_ROUTER_FOR_ALL_URIS</code> is set to 
  * <code>false</code>, the next hop is determined according to the following algorithm: 
  * <ul>
  * <li> If the request contains one or more Route headers, use the URI of the 
  *      topmost Route header as next hop, possibly modifying the request in
  *      the process if the topmost Route header contains no lr parameter(See Note below))
- * <li> Else, if the property <code>javax.sip.OUTBOUND_PROXY</code> is set, use its
+ * <li> Else, if the property <code>android.javax.sip.OUTBOUND_PROXY</code> is set, use its
  *      value as the next hop
  * <li> Otherwise, use the request URI as next hop. If the request URI is not a SIP
- *      URI, call {@link javax.sip.address.Router#getNextHop(Request)} provided by the application.
+ *      URI, call {@link android.javax.sip.address.Router#getNextHop(Request)} provided by the application.
  * </ul>
  * 
  * <p><b>Note:</b> In case the topmost Route header contains no 'lr' parameter 
@@ -75,7 +75,7 @@ import java.util.ListIterator;
  *
  * <p>The location (classname) of the user-defined Router object is supplied in the 
  * Properties object passed to the
- * {@link javax.sip.SipFactory#createSipStack(Properties)} method upon creation
+ * {@link android.javax.sip.SipFactory#createSipStack(Properties)} method upon creation
  * of the SIP Stack object.
  * The Router object must accept a SipStack as an argument to the constructor in
  * order for the Router to access attributes of the SipStack 
@@ -85,7 +85,7 @@ import java.util.ListIterator;
  * The routing policy can not be changed dynamically, i.e. the SipStack needs to be
  * deleted and re-created.
  * Outbound proxy should be passed to the
- * {@link javax.sip.SipFactory#createSipStack(Properties)} method upon creation
+ * {@link android.javax.sip.SipFactory#createSipStack(Properties)} method upon creation
  * of the SIP Stack object.
  * 
  * <p><b>Application Notes</b><br/>

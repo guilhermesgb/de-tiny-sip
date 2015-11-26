@@ -1,8 +1,8 @@
 /**
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  * Unpublished - rights reserved under the Copyright Laws of the United States.
- * Copyright C 2003 Sun Microsystems, Inc. All rights reserved.
- * Copyright C 2005 BEA Systems, Inc. All rights reserved.
+ * Copyright (C) 2003 Sun Microsystems, Inc. All rights reserved.
+ * Copyright (C) 2005 BEA Systems, Inc. All rights reserved.
  *
  * Use is subject to license terms.
  *
@@ -37,14 +37,14 @@ import java.util.*;
  * required to represent and provision a proprietary SIP protocol stack.
  * <p>
  * This SipStack interface defines the methods that are be used by an
- * application implementing the {@link javax.sip.SipListener} interface to
+ * application implementing the {@link android.javax.sip.SipListener} interface to
  * control the architecture and setup of the SIP stack. These methods include:
  * <ul>
- * <li>Creation/deletion of {@link javax.sip.SipProvider}'s that represent
+ * <li>Creation/deletion of {@link android.javax.sip.SipProvider}'s that represent
  * messaging objects that can be used by an application to send
- * {@link javax.sip.message.Request}and {@link javax.sip.message.Response}
+ * {@link android.javax.sip.message.Request}and {@link android.javax.sip.message.Response}
  * messages statelessly or statefully via Client and Server transactions.
- * <li>Creation/deletion of {@link javax.sip.ListeningPoint}'s that represent
+ * <li>Creation/deletion of {@link android.javax.sip.ListeningPoint}'s that represent
  * different ports and transports that a SipProvider can use to send and receive
  * messages.
  * </ul>
@@ -57,7 +57,7 @@ import java.util.*;
  * An application must create a SipStack by invoking the
  * {@link SipFactory#createSipStack(Properties)}method, ensuring the
  * {@link SipFactory#setPathName(String)}is set. Following the naming
- * convention defined in {@link javax.sip.SipFactory}, the implementation of
+ * convention defined in {@link android.javax.sip.SipFactory}, the implementation of
  * the SipStack interface must be called SipStackImpl. This specification also
  * defines a stack configuration mechanism using java.util.Properties, therefore
  * this constructor must also accept a properties argument:
@@ -89,7 +89,7 @@ import java.util.*;
  * <tr>
  * <td align="left" valign="top">
  * <p class="table">
- * javax.sip.IP_ADDRESS
+ * android.javax.sip.IP_ADDRESS
  * </p>
  * </td>
  * <td align="left" valign="top">
@@ -111,7 +111,7 @@ import java.util.*;
  * <tr>
  * <td align="left" valign="top">
  * <p class="table">
- * javax.sip.STACK_NAME
+ * android.javax.sip.STACK_NAME
  * </p>
  * </td>
  * <td align="left" valign="top">
@@ -125,7 +125,7 @@ import java.util.*;
  * <tr>
  * <td align="left" valign="top">
  * <p class="table">
- * javax.sip.OUTBOUND_PROXY
+ * android.javax.sip.OUTBOUND_PROXY
  * </p>
  * </td>
  * <td align="left" valign="top">
@@ -140,7 +140,7 @@ import java.util.*;
  * <tr>
  * <td align="left" valign="top">
  * <p class="table">
- * javax.sip.ROUTER_PATH
+ * android.javax.sip.ROUTER_PATH
  * </p>
  * </td>
  * <td align="left" valign="top">
@@ -150,9 +150,9 @@ import java.util.*;
  * decision ( ie. non-sip URIs). In version 1.2 of this specification,
  * out of Dialog SIP URIs are routed by the Routing algorithm defined in RFC 3261 
  * which is implemented internally by the stack provided that 
- * javax.sip.USE_ROUTER_FOR_ALL_URIS is set to false.  In this case,
+ * android.javax.sip.USE_ROUTER_FOR_ALL_URIS is set to false.  In this case,
  * the installed Router object is consulted for routing decisions pertaining to
- * non-SIP URIs. An application defined Router object must implement the javax.sip.Router interface. 
+ * non-SIP URIs. An application defined Router object must implement the android.javax.sip.Router interface. 
  * This property is optional.
  * </td>
  * </tr>
@@ -160,7 +160,7 @@ import java.util.*;
  * <tr>
  * <td align="left" valign="top">
  * <p class="table">
- * javax.sip.EXTENSION_METHODS
+ * android.javax.sip.EXTENSION_METHODS
  * </p>
  * </td>
  * <td align="left" valign="top">
@@ -180,7 +180,7 @@ import java.util.*;
  *
  * <tr>
  *	<td align="left" valign="top">
- *		<p class="table">javax.sip.RETRANSMISSION_FILTER</p>
+ *		<p class="table">android.javax.sip.RETRANSMISSION_FILTER</p>
  *	</td>
  *	<td align="left" valign="top">
  * 		<p class="table"><b>Deprecated v1.2.</b> Applications can request
@@ -218,7 +218,7 @@ import java.util.*;
  * <tr>
  * <td align="left" valign="top">
  * <p class="table">
- * javax.sip.AUTOMATIC_DIALOG_SUPPORT
+ * android.javax.sip.AUTOMATIC_DIALOG_SUPPORT
  * </p>
  * </td>
  * <td align="left" valign="top">This property specifies the defined values
@@ -250,7 +250,7 @@ import java.util.*;
  * <tr>
  * <td align="left" valign="top">
  * <p class="table">
- * javax.sip.FORKABLE_EVENTS
+ * android.javax.sip.FORKABLE_EVENTS
  * </p>
  * </td>
  * <td align="left" valign="top">
@@ -287,7 +287,7 @@ import java.util.*;
  * <tr>
  * <td align="left" valign="top">
  * <p class="table">
- * javax.sip.USE_ROUTER_FOR_ALL_URIS
+ * android.javax.sip.USE_ROUTER_FOR_ALL_URIS
  * </p>
  * </td>
  * <td align="left" valign="top">
@@ -508,7 +508,7 @@ public interface SipStack {
      * of ACK's and 2xx responses to an INVITE transaction are handled by the
      * SipProvider, hence the application will not receive
      * {@link Timeout#RETRANSMIT}notifications encapsulated in
-     * {@link javax.sip.TimeoutEvent}'s, however an application will be
+     * {@link android.javax.sip.TimeoutEvent}'s, however an application will be
      * notified if the underlying transaction expires with a
      * {@link Timeout#TRANSACTION}notification encapsulated in a TimeoutEvent.
      *

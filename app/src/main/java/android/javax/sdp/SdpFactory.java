@@ -1,8 +1,8 @@
 package android.javax.sdp;
 
-import android.gov.nist.javax.sdp.*;
-import android.gov.nist.javax.sdp.fields.*;
-import android.gov.nist.javax.sdp.parser.*;
+import android.gov.nist.gnjvx.sdp.*;
+import android.gov.nist.gnjvx.sdp.fields.*;
+import android.gov.nist.gnjvx.sdp.parser.*;
 
 import java.util.*;
 import java.net.*;

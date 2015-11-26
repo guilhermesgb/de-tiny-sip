@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="android.de.tinysip.sipdemo.test">
+    package="de.tinysip.sipdemo.test">
 
     <uses-sdk android:minSdkVersion="7" android:targetSdkVersion="7" />
 
@@ -9,8 +9,8 @@
     </application>
 
     <instrumentation android:name="android.test.InstrumentationTestRunner"
-                     android:targetPackage="android.de.tinysip.sipdemo"
+                     android:targetPackage="de.tinysip.sipdemo"
                      android:handleProfiling="false"
                      android:functionalTest="false"
-                     android:label="Tests for android.de.tinysip.sipdemo"/>
+                     android:label="Tests for de.tinysip.sipdemo"/>
 </manifest>

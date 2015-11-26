@@ -1,8 +1,8 @@
 /**
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  * Unpublished - rights reserved under the Copyright Laws of the United States.
- * Copyright C 2003 Sun Microsystems, Inc. All rights reserved.
- * Copyright C 2005 BEA Systems, Inc. All rights reserved.
+ * Copyright (C) 2003 Sun Microsystems, Inc. All rights reserved.
+ * Copyright (C) 2005 BEA Systems, Inc. All rights reserved.
  *
  * Use is subject to license terms.
  *
@@ -34,7 +34,7 @@ import android.javax.sip.message.Response;
  * <p>
  * This specification defines a single Response event object to handle all 
  * Response messages. The Response event encapsulates the Response message 
- * that can be retrieved from {@link javax.sip.ResponseEvent#getResponse()}.
+ * that can be retrieved from {@link android.javax.sip.ResponseEvent#getResponse()}.
  * Therefore the event type of a Response event can be determined as follows:
  * <p>
  * <i>eventType == ResponseEvent.getResponse().getStatusCode();</i>

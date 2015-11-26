@@ -1,8 +1,8 @@
 /**
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  * Unpublished - rights reserved under the Copyright Laws of the United States.
- * Copyright C 2003 Sun Microsystems, Inc. All rights reserved.
- * Copyright C 2005 BEA Systems, Inc. All rights reserved.
+ * Copyright (C) 2003 Sun Microsystems, Inc. All rights reserved.
+ * Copyright (C) 2005 BEA Systems, Inc. All rights reserved.
  *
  * Use is subject to license terms.
  *
@@ -31,7 +31,7 @@ import java.util.EventListener;
  * defines the application's communication channel to the SIP stack. This
  * interface defines the methods required by an applications to receive and
  * process Events that are emitted by an object implementing the
- * {@link javax.sip.SipProvider}interface.
+ * {@link android.javax.sip.SipProvider}interface.
  * <p>
  * The Events accepted by a SipListener may be one of four types:
  * <ul>
@@ -84,11 +84,11 @@ import java.util.EventListener;
  * environments utilizing this specification to talk the SIP protocol.
  * <p>
  * <b>Messaging Model: </b> <br>
- * An application can send messages by passing {@link javax.sip.message.Request}
- * and {@link javax.sip.message.Response}messages to that the following object:
+ * An application can send messages by passing {@link android.javax.sip.message.Request}
+ * and {@link android.javax.sip.message.Response}messages to that the following object:
  * <ul>
  * <li>Request and response messages can be sent statelessly via the
- * SipProvider using the send methods on the {@link javax.sip.SipProvider}.
+ * SipProvider using the send methods on the {@link android.javax.sip.SipProvider}.
  * <li>Request messages can be sent transaction stateful via the
  * ClientTransaction using the {@link ClientTransaction#sendRequest()}method.
  * <li>Response messages can be sent transaction stateful via the

@@ -1,8 +1,8 @@
 /**
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  * Unpublished - rights reserved under the Copyright Laws of the United States.
- * Copyright C 2003 Sun Microsystems, Inc. All rights reserved.
- * Copyright C 2005 BEA Systems, Inc. All rights reserved.
+ * Copyright (C) 2003 Sun Microsystems, Inc. All rights reserved.
+ * Copyright (C) 2005 BEA Systems, Inc. All rights reserved.
  *
  * Use is subject to license terms.
  *
@@ -61,7 +61,7 @@ public class RequestEvent extends EventObject {
     /**
     * Constructs a RequestEvent encapsulating the Request that has been received
     * by the underlying SipProvider. This RequestEvent once created is passed to
-    * {@link javax.sip.SipListener#processRequest(RequestEvent)} method of the SipListener
+    * {@link android.javax.sip.SipListener#processRequest(RequestEvent)} method of the SipListener
     * for application processing.
     *
     * @param source - the source of ResponseEvent i.e. the SipProvider

@@ -1,8 +1,8 @@
 /**
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  * Unpublished - rights reserved under the Copyright Laws of the United States.
- * Copyright C 2003 Sun Microsystems, Inc. All rights reserved.
- * Copyright C 2005 BEA Systems, Inc. All rights reserved.
+ * Copyright (C) 2003 Sun Microsystems, Inc. All rights reserved.
+ * Copyright (C) 2005 BEA Systems, Inc. All rights reserved.
  *
  * Use is subject to license terms.
  *
@@ -152,7 +152,7 @@ import java.io.Serializable;
  * alerted for retransmissions of Reliable Provisional responses:
  * <ul>
  * <li> The application sends a reliable provisional Response to an Invite
- * Dialog using {@link javax.sip.Dialog#sendReliableProvisionalResponse(Response) }
+ * Dialog using {@link android.javax.sip.Dialog#sendReliableProvisionalResponse(Response) }
  * <li> The Stack takes care of retransmitting the provisional response with
  * exponentially increasing intervals until a PRACK is received or the
  * Transaction times out.

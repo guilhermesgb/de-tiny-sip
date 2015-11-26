@@ -1,8 +1,8 @@
 /**
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  * Unpublished - rights reserved under the Copyright Laws of the United States.
- * Copyright C 2003 Sun Microsystems, Inc. All rights reserved.
- * Copyright C 2005 BEA Systems, Inc. All rights reserved.
+ * Copyright (C) 2003 Sun Microsystems, Inc. All rights reserved.
+ * Copyright (C) 2005 BEA Systems, Inc. All rights reserved.
  *
  * Use is subject to license terms.
  *
@@ -32,7 +32,7 @@ import android.javax.sip.header.Header;
  * The SIP-ETag header is used by a server (event state collector) in a 2xx 
  * response to PUBLISH in order to convey a unique entity tag for the published
  * state. The client may then use this tag in a 
- * {@link javax.sip.header.SIPIfMatchHeader} to update previously published 
+ * {@link android.javax.sip.header.SIPIfMatchHeader} to update previously published 
  * state.
  * <p>
  * Sample syntax:<br><code>SIP-ETag: dx200xyz</code>

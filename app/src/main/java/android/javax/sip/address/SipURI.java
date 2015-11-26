@@ -1,8 +1,8 @@
 /**
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  * Unpublished - rights reserved under the Copyright Laws of the United States.
- * Copyright C 2003 Sun Microsystems, Inc. All rights reserved.
- * Copyright C 2005 BEA Systems, Inc. All rights reserved.
+ * Copyright (C) 2003 Sun Microsystems, Inc. All rights reserved.
+ * Copyright (C) 2005 BEA Systems, Inc. All rights reserved.
  *
  * Use is subject to license terms.
  *
@@ -99,9 +99,9 @@ import android.javax.sip.InvalidArgumentException;
  * for the use of SIP and SIPS URI components based on the context in which the
  * URI appears.
  *
- * @see javax.sip.header.FromHeader
- * @see javax.sip.header.ToHeader
- * @see javax.sip.header.ContactHeader
+ * @see android.javax.sip.header.FromHeader
+ * @see android.javax.sip.header.ToHeader
+ * @see android.javax.sip.header.ContactHeader
  * @see URI
  *
  * @author BEA Systems, NIST 
@@ -257,7 +257,7 @@ public interface SipURI extends URI, Parameters {
      * this entity. The following values are defined: "udp", "tcp", "sctp",
      * "tls", but other values may be used also. This method is equivalent to
      * setParameter("transport", transport). Transport parameter constants
-     * are defined in the {@link javax.sip.ListeningPoint}.
+     * are defined in the {@link android.javax.sip.ListeningPoint}.
      *
      * @param transport - new value for the "transport" parameter
      * @throws ParseException which signals that an error has been reached

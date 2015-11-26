@@ -1,8 +1,8 @@
 /**
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  * Unpublished - rights reserved under the Copyright Laws of the United States.
- * Copyright C 2003 Sun Microsystems, Inc. All rights reserved.
- * Copyright C 2005 BEA Systems, Inc. All rights reserved.
+ * Copyright (C) 2003 Sun Microsystems, Inc. All rights reserved.
+ * Copyright (C) 2005 BEA Systems, Inc. All rights reserved.
  *
  * Use is subject to license terms.
  *
@@ -127,7 +127,7 @@ public interface CallIdHeader extends Header {
 
     /**
      * Compare this CallIdHeader for equality with another. This method 
-     * overrides the equals method in javax.sip.Header. This method specifies 
+     * overrides the equals method in android.javax.sip.Header. This method specifies 
      * object equality as outlined by  
      * <a href = "http://www.ietf.org/rfc/rfc3261.txt">RFC3261</a>. 
      * Call-IDs are case-sensitive and are simply compared byte-by-byte. 

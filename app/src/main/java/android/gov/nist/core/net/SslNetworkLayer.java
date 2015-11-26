@@ -45,6 +45,7 @@ import javax.net.ssl.SSLSocket;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManagerFactory;
 
+
 /**
  * extended implementation of a network layer that allows to define a private java
  * keystores/truststores

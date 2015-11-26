@@ -1,8 +1,8 @@
 /**
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  * Unpublished - rights reserved under the Copyright Laws of the United States.
- * Copyright C 2003 Sun Microsystems, Inc. All rights reserved.
- * Copyright C 2005 BEA Systems, Inc. All rights reserved.
+ * Copyright (C) 2003 Sun Microsystems, Inc. All rights reserved.
+ * Copyright (C) 2005 BEA Systems, Inc. All rights reserved.
  *
  * Use is subject to license terms.
  *
@@ -27,7 +27,7 @@ import java.text.ParseException;
  * This interface provides factory methods that allow an application to create 
  * Address objects, URI's, SipURI's and TelURL's from a particular 
  * implementation of this specification. This class is a singleton and can be 
- * retrieved from the {@link javax.sip.SipFactory#createAddressFactory()}.
+ * retrieved from the {@link android.javax.sip.SipFactory#createAddressFactory()}.
  *
  * @author BEA Systems, NIST
  * @version 1.2

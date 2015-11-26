@@ -33,7 +33,7 @@
  */
 package android.gov.nist.core;
 
-import android.gov.nist.javax.sdp.parser.Lexer;
+import android.gov.nist.gnjvx.sdp.parser.Lexer;
 
 import java.text.ParseException;
 
@@ -61,7 +61,7 @@ public class HostNameParser extends ParserCore {
 		this.lexer = new LexerCore("charLexer", hname);
 
 		stripAddressScopeZones
-			= Boolean.getBoolean("gov.nist.core.STRIP_ADDR_SCOPES");
+			= Boolean.getBoolean("android.gov.nist.core.STRIP_ADDR_SCOPES");
 	}
 
 	/**
@@ -72,7 +72,7 @@ public class HostNameParser extends ParserCore {
 		lexer.selectLexer("charLexer");
 
 		stripAddressScopeZones
-			= Boolean.getBoolean("gov.nist.core.STRIP_ADDR_SCOPES");
+			= Boolean.getBoolean("android.gov.nist.core.STRIP_ADDR_SCOPES");
 	}
 
 	private static final char[] VALID_DOMAIN_LABEL_CHAR =

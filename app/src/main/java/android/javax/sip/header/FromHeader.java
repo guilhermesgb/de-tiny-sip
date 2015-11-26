@@ -1,8 +1,8 @@
 /**
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  * Unpublished - rights reserved under the Copyright Laws of the United States.
- * Copyright C 2003 Sun Microsystems, Inc. All rights reserved.
- * Copyright C 2005 BEA Systems, Inc. All rights reserved.
+ * Copyright (C) 2003 Sun Microsystems, Inc. All rights reserved.
+ * Copyright (C) 2005 BEA Systems, Inc. All rights reserved.
  *
  * Use is subject to license terms.
  *
@@ -40,7 +40,7 @@ import java.text.ParseException;
 
  * Like the To header field, it contains a URI and optionally a display name,
 
- * encapsulated in a {@link javax.sip.address.Address}.  It is used by SIP
+ * encapsulated in a {@link android.javax.sip.address.Address}.  It is used by SIP
 
  * elements to determine which processing rules to apply to a request (for
 
@@ -165,7 +165,7 @@ public interface FromHeader extends HeaderAddress, Parameters, Header {
 
     /**
      * Compare this FromHeader for equality with another. This method 
-     * overrides the equals method in javax.sip.Header. This method specifies 
+     * overrides the equals method in android.javax.sip.Header. This method specifies 
      * object equality as outlined by  
      * <a href = "http://www.ietf.org/rfc/rfc3261.txt">RFC3261</a>. 
      * Two From header fields are equivalent if their URIs match, and their 
