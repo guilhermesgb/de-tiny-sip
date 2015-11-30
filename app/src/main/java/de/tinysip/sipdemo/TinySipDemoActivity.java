@@ -28,6 +28,7 @@ import de.tinysip.sip.SipManagerSessionEvent;
 import de.tinysip.sip.SipManagerState;
 import de.tinysip.sip.SipManagerStatusChangedEvent;
 import de.tinysip.sip.SipManagerStatusListener;
+import de.tinysip.sip.SipProfile;
 import de.tinysip.sip.SipSession;
 import de.tinysip.sip.SipVideoFormat;
 import de.tinysip.stun.STUNDiscoveryResultEvent;
@@ -44,7 +45,7 @@ public class TinySipDemoActivity extends Activity implements STUNDiscoveryResult
 	private static String TAG = "tSIP";
 	private TextView sipStatusText;
 
-	private LocalSipProfile localSipProfile;
+	private SipProfile sipProfile;
 	private SipContact sipContact;
 	private STUNDiscoveryTask sipPortTask;
 	private DiscoveryInfo sipDiscoveryInfo;
@@ -65,41 +66,66 @@ public class TinySipDemoActivity extends Activity implements STUNDiscoveryResult
 		// the local user's credentials (change details in SettingsProvider)
 
 		InetAddress address = SipManager.getInetAddress();
-		localSipProfile = new LocalSipProfile("samir", address);
+		sipProfile = new SipProfile( SettingsProvider.sipUserName, SettingsProvider.sipUserName, SipManager.getInetAddress().getHostAddress(),
+				SettingsProvider.sipDomain, SettingsProvider.sipUserName.toUpperCase(), SettingsProvider.sipPort, SettingsProvider.sipPort,
+				true, false, "stun.sipgate.net", 10000);
 
 		// create a list of supported audio formats for the local user agent
 		ArrayList<SipAudioFormat> audioFormats = new ArrayList<SipAudioFormat>();
 		audioFormats.add(new SipAudioFormat(SdpConstants.PCMA, "PCMA", 8000));
-		localSipProfile.setAudioFormats(audioFormats);
+		sipProfile.setAudioFormats(audioFormats);
 
 		// set ports for rtp and rtcp for audio
-		localSipProfile.setLocalAudioRtpPort(5071);
-		localSipProfile.setLocalAudioRtcpPort(5072);
+		sipProfile.setLocalAudioRtpPort(5071);
+		sipProfile.setLocalAudioRtcpPort(5072);
 
 		// create a list of supported video formats for the local user agent
 		ArrayList<SipVideoFormat> videoFormats = new ArrayList<SipVideoFormat>();
 		videoFormats.add(new SipVideoFormat(SdpConstants.JPEG, "JPEG", 90000));
-		localSipProfile.setVideoFormats(videoFormats);
+		sipProfile.setVideoFormats(videoFormats);
 
 		// set ports for rtp and rtcp for video
-		localSipProfile.setLocalVideoRtpPort(5073);
-		localSipProfile.setLocalVideoRtcpPort(5074);
+		sipProfile.setLocalVideoRtpPort(5073);
+		sipProfile.setLocalVideoRtcpPort(5074);
 
 		// the sip contact to call (change details in SettingsProvider)
 		// sipContact = new SipContact(SettingsProvider.callContact, SettingsProvider.callDomain, true);
-		sipContact = new SipContact("samir", "192.168.132.80", 5060);
+		sipContact = new SipContact("6002", "192.168.132.80", 5060);
 
-		if (!localSipProfile.isLocalProfile()) {
-			// the STUN server and port for NAT traversal
-			STUNInfo sipPortInfo = new STUNInfo(STUNInfo.TYPE_SIP, "stun.sipgate.net", 10000);
-			sipPortInfo.setLocalPort(5070); // local port to use for SIP
-			sipPortTask = new STUNDiscoveryTask();
-			sipPortTask.addResultListener(this);
-			sipPortTask.execute(sipPortInfo);
-			sipStatusText.append("\n" + getString(R.string.STUNDiscovery));
-		} else {
-			startSipRegistration();
+//		if (!localSipProfile.isLocalProfile()) {
+//			// the STUN server and port for NAT traversal
+//			STUNInfo sipPortInfo = new STUNInfo(STUNInfo.TYPE_SIP, "stun.sipgate.net", 10000);
+//			sipPortInfo.setLocalPort(5070); // local port to use for SIP
+//			sipPortTask = new STUNDiscoveryTask();
+//			sipPortTask.addResultListener(this);
+//			sipPortTask.execute(sipPortInfo);
+//			sipStatusText.append("\n" + getString(R.string.STUNDiscovery));
+//		} else {
+//			startSipRegistration();
+//		}
+
+
+		startJFLSipRegistration();
+
+	}
+
+	private void startJFLSipRegistration() {
+		try {
+			Log.d("TinySipDemoActivity", "startSipRegistration - localSipProfile.isLocalProfile() = true");
+			sipManager = SipManager.createInstance(sipProfile, sipProfile.getSipDomain(), sipProfile.getLocalSipPort());
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
+		sipManager.addStatusListener(this);
+		Log.d("BasicSipAppActivity", "startJFLSipRegistration - RegisterProfile - BEGIN");
+		try {
+			sipManager.registerJFLProfile();
+			//sipEventsTextView.append("\n" + getString(R.string.SIPReady));
+		} catch (Exception e) {
+			e.printStackTrace();
+			//sipEventsTextView.append("\n" + getString(R.string.SIPRegistrationError));
+		}
+		Log.d("BasicSipAppActivity", "startJFLSipRegistration - RegisterProfile - END");
 	}
 
 	@Override
@@ -148,10 +174,10 @@ public class TinySipDemoActivity extends Activity implements STUNDiscoveryResult
 				case TIMEOUT:
 					break;
 				case READY:
-					localSipProfile = sipManager.getLocalSipProfile();
+					sipProfile = sipManager.getSipProfile();
 					sipStatusText.append("\n" + getString(R.string.SIPReady));
-					sipStatusText.append("\n" + localSipProfile.toString());
-					if ((localSipProfile.isLocalProfile() && sipContact.isLocalContact()) || !(localSipProfile.isLocalProfile() && sipContact.isLocalContact())) {
+					sipStatusText.append("\n" + sipProfile.toString());
+					if ((sipProfile.isLocalProfile() && sipContact.isLocalContact()) || !(sipProfile.isLocalProfile() && sipContact.isLocalContact())) {
 						sipStatusText.append("\n" + getString(R.string.SIPInvite) + " " + sipContact.toString());
 						try {
 							sipManager.sendInvite(sipContact);
@@ -224,12 +250,12 @@ public class TinySipDemoActivity extends Activity implements STUNDiscoveryResult
 
 	private void startSipRegistration() {
 		try {
-			if (localSipProfile.isLocalProfile()) {
+			if (sipProfile.isLocalProfile()) {
 				Log.d("TinySipDemoActivity", "startSipRegistration - localSipProfile.isLocalProfile() = true");
-				sipManager = SipManager.createInstance(localSipProfile, localSipProfile.getSipDomain(), localSipProfile.getLocalSipPort());
+				sipManager = SipManager.createInstance(sipProfile, sipProfile.getSipDomain(), sipProfile.getLocalSipPort());
 			} else {
 				Log.d("TinySipDemoActivity", "startSipRegistration - localSipProfile.isLocalProfile() = false");
-				sipManager = SipManager.createInstance(localSipProfile, sipDiscoveryInfo.getPublicIP().getHostAddress(), sipDiscoveryInfo.getPublicPort());
+				sipManager = SipManager.createInstance(sipProfile, sipDiscoveryInfo.getPublicIP().getHostAddress(), sipDiscoveryInfo.getPublicPort());
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

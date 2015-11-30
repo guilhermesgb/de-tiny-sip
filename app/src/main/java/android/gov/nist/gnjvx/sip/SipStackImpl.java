@@ -65,6 +65,7 @@ import android.javax.sip.TransportNotSupportedException;
 import android.javax.sip.address.Router;
 import android.javax.sip.header.HeaderFactory;
 import android.javax.sip.message.Request;
+import android.util.Log;
 
 import org.apache.log4j.Appender;
 import org.apache.log4j.Logger;

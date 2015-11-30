@@ -61,6 +61,7 @@ import android.javax.sip.message.Message;
 import android.javax.sip.message.MessageFactory;
 import android.javax.sip.message.Request;
 import android.javax.sip.message.Response;
+import android.util.Log;
 
 /**
  * SipMessageHandler takes care of sending sip messages and parsing incoming ones.
@@ -77,7 +78,7 @@ public class SipMessageHandler {
 	private SipProvider sipProvider = null;
 	private ListeningPoint listeningPoint = null;
 
-	private LocalSipProfile localSipProfile = null;
+	private SipProfile sipProfile = null;
 	private String localIPAddress;
 	private int localSipPort;
 
@@ -102,9 +103,11 @@ public class SipMessageHandler {
 	 * @throws InvalidArgumentException
 	 * @throws ObjectInUseException
 	 */
-	private SipMessageHandler(LocalSipProfile localSipProfile, String localIPAddress, int localSipPort) throws PeerUnavailableException, TransportNotSupportedException,
+	private SipMessageHandler(SipProfile sipProfile, String localIPAddress, int localSipPort) throws PeerUnavailableException, TransportNotSupportedException,
 			InvalidArgumentException, ObjectInUseException {
-		this.localSipProfile = localSipProfile;
+
+		Log.d("SipMessageHandler constructor", "BEGIN");
+		this.sipProfile = sipProfile;
 		this.localIPAddress = localIPAddress;
 		this.localSipPort = localSipPort;
 		// Create SipFactory
@@ -120,28 +123,35 @@ public class SipMessageHandler {
 		addressFactory = sipFactory.createAddressFactory();
 		messageFactory = sipFactory.createMessageFactory();
 
+        Log.d("SipMessageHandler constructor", "SYNC POINT");
+
 		int minPort = 5000, maxPort = 6000;
 		boolean successfullyBound = false;
-		while (!successfullyBound) {
+        int tries = 3;
+		while (tries > 0 && !successfullyBound) {
 			try {
+                Log.d("SipMessageHandler", " while tries:" + tries + " localIPAddress:" + localIPAddress + " localSipPort:" + localSipPort);
 				listeningPoint = sipStack.createListeningPoint(localIPAddress, localSipPort, ListeningPoint.UDP);
 			} catch (InvalidArgumentException ex) {
+                ex.printStackTrace();
 				// choose another port between MIN and MAX
 				localSipPort = (int) ((maxPort - minPort) * Math.random()) + minPort;
+                tries--;
 				continue;
 			}
 			successfullyBound = true;
-			localSipProfile.setLocalSipPort(localSipPort);
+            sipProfile.setLocalSipPort(localSipPort);
 			//TODO: needs to check for the public port again if the local one changed
 		}
 
 		sipProvider = sipStack.createSipProvider(listeningPoint);
+		Log.d("SipMessageHandler constructor", "BEGIN");
 	}
 
 	/**
 	 * Create an instance of SipMessageHandler.
 	 * 
-	 * @param localSipProfile
+	 * @param sipProfile
 	 *            the local user's SIP profile to register with the provider
 	 * @param discoveryInfo
 	 *            the STUN DiscoveryInfo for NAT traversal
@@ -151,11 +161,13 @@ public class SipMessageHandler {
 	 * @throws ObjectInUseException
 	 * @throws InvalidArgumentException
 	 */
-	public static SipMessageHandler createInstance(LocalSipProfile localSipProfile, String localIPAddress, int localSipPort) throws PeerUnavailableException, TransportNotSupportedException,
+	public static SipMessageHandler createInstance(SipProfile sipProfile, String localIPAddress, int localSipPort) throws PeerUnavailableException, TransportNotSupportedException,
 			ObjectInUseException, InvalidArgumentException {
-		if (sipMessageHandler == null)
-			sipMessageHandler = new SipMessageHandler(localSipProfile, localIPAddress, localSipPort);
-
+		if (sipMessageHandler == null) {
+			Log.d("SipMessageHandler", "createInstance - BEGIN");
+			sipMessageHandler = new SipMessageHandler(sipProfile, localIPAddress, localSipPort);
+			Log.d("SipMessageHandler", "createInstance - END");
+		}
 		return sipMessageHandler;
 	}
 
@@ -174,10 +186,10 @@ public class SipMessageHandler {
 	}
 
 	/**
-	 * @return the LocalSipProfile
+	 * @return the SipProfile
 	 */
-	public LocalSipProfile getLocalSipProfile() {
-		return localSipProfile;
+	public SipProfile getSipProfile() {
+		return sipProfile;
 	}
 
 	/**
@@ -191,11 +203,11 @@ public class SipMessageHandler {
 	 */
 	public void register(SipRequestState state) throws ParseException, InvalidArgumentException, SipException {
 		// create To and From headers
-		FromHeader fromHeader = localSipProfile.getFromHeader(addressFactory, headerFactory);
-		ToHeader toHeader = localSipProfile.getToHeader(addressFactory, headerFactory);
+		FromHeader fromHeader = sipProfile.getFromHeader(addressFactory, headerFactory);
+		ToHeader toHeader = sipProfile.getToHeader(addressFactory, headerFactory);
 
 		// create a new Request URI
-		SipURI requestURI = addressFactory.createSipURI(localSipProfile.getUserName(), localSipProfile.getSipDomain());
+		SipURI requestURI = addressFactory.createSipURI(sipProfile.getUsername(), sipProfile.getSipDomain());
 
 		// Create Via headers
 		List<ViaHeader> viaHeaders = new ArrayList<ViaHeader>();
@@ -225,10 +237,10 @@ public class SipMessageHandler {
 			request.addHeader(contactHeader);
 		} else {
 			// Create the contact name address
-			SipURI contactURI = addressFactory.createSipURI(localSipProfile.getUserName(), localIPAddress);
+			SipURI contactURI = addressFactory.createSipURI(sipProfile.getUsername(), localIPAddress);
 			contactURI.setPort(localSipPort);
 			Address contactAddress = addressFactory.createAddress(contactURI);
-			contactAddress.setDisplayName(localSipProfile.getDisplayName());
+			contactAddress.setDisplayName(sipProfile.getDisplayName());
 
 			// Create a new Contact header
 			ContactHeader contactHeader = headerFactory.createContactHeader(contactAddress);
@@ -237,7 +249,7 @@ public class SipMessageHandler {
 		}
 
 		if (state.equals(SipRequestState.AUTHORIZATION) || state.equals(SipRequestState.UNREGISTER_AUTHORIZATION)) {
-			request.addHeader(localSipProfile.getAuthorizationHeader(headerFactory));
+			request.addHeader(sipProfile.getAuthorizationHeader(headerFactory));
 		}
 
 		// Create the client transaction and send the request
@@ -387,10 +399,10 @@ public class SipMessageHandler {
 
 		if (transaction == null) {
 			// Create the contact name address
-			SipURI contactURI = addressFactory.createSipURI(localSipProfile.getUserName(), localIPAddress);
+			SipURI contactURI = addressFactory.createSipURI(sipProfile.getUsername(), localIPAddress);
 			contactURI.setPort(localSipPort);
 			Address contactAddress = addressFactory.createAddress(contactURI);
-			contactAddress.setDisplayName(localSipProfile.getDisplayName());
+			contactAddress.setDisplayName(sipProfile.getDisplayName());
 
 			// Create a new Contact header
 			ContactHeader contactHeader = headerFactory.createContactHeader(contactAddress);
@@ -471,7 +483,7 @@ public class SipMessageHandler {
 	 */
 	public void sendInvite(SipContact contact, SipRequestState state) throws ParseException, InvalidArgumentException, NullPointerException, SipException, SdpException {
 		// create To and From headers
-		FromHeader fromHeader = localSipProfile.getFromHeader(addressFactory, headerFactory);
+		FromHeader fromHeader = sipProfile.getFromHeader(addressFactory, headerFactory);
 		ToHeader toHeader = contact.getToHeader(addressFactory, headerFactory);
 
 		// create a new Request URI
@@ -505,17 +517,17 @@ public class SipMessageHandler {
 		request.addFirst(expires);
 
 		// Create the contact name address
-		SipURI contactURI = addressFactory.createSipURI(localSipProfile.getUserName(), localIPAddress);
+		SipURI contactURI = addressFactory.createSipURI(sipProfile.getUsername(), localIPAddress);
 		contactURI.setPort(localSipPort);
 		Address contactAddress = addressFactory.createAddress(contactURI);
-		contactAddress.setDisplayName(localSipProfile.getDisplayName());
+		contactAddress.setDisplayName(sipProfile.getDisplayName());
 
 		// Create a new Contact header
 		ContactHeader contactHeader = headerFactory.createContactHeader(contactAddress);
 		request.addHeader(contactHeader);
 
 		if (state.equals(SipRequestState.AUTHORIZATION)) {
-			request.addHeader(localSipProfile.getProxyAuthorizationHeader(headerFactory));
+			request.addHeader(sipProfile.getProxyAuthorizationHeader(headerFactory));
 		}
 
 		ContentTypeHeader contentTypeHeader = headerFactory.createContentTypeHeader("application", "sdp");
@@ -615,7 +627,7 @@ public class SipMessageHandler {
 		}
 
 		OriginField originField = new OriginField();
-		originField.setUsername(localSipProfile.getDisplayName());
+		originField.setUsername(sipProfile.getDisplayName());
 		originField.setSessionId(sessionId);
 		originField.setSessVersion(sessionVersion);
 		originField.setNetworkType(SDPKeywords.IN);
@@ -633,21 +645,21 @@ public class SipMessageHandler {
 		Vector mediaDescriptions = new Vector();
 
 		// Add audio formats
-		if(localSipProfile.getAudioFormats().size() > 0){
+		if(sipProfile.getAudioFormats().size() > 0){
 			MediaField audioField = new MediaField();
 			audioField.setMediaType("audio");
-			audioField.setPort(localSipProfile.getLocalAudioRtpPort());
+			audioField.setPort(sipProfile.getLocalAudioRtpPort());
 			audioField.setProtocol(SdpConstants.RTP_AVP);
 
 			Vector<String> audioFormats = new Vector<String>();
-			for (SipAudioFormat audioFormat : localSipProfile.getAudioFormats()) {
+			for (SipAudioFormat audioFormat : sipProfile.getAudioFormats()) {
 				audioFormats.add(audioFormat.getFormat() + "");
 			}
 			audioField.setMediaFormats(audioFormats);
 
 			MediaDescriptionImpl audioDescription = new MediaDescriptionImpl();
 
-			for (SipAudioFormat audioFormat : localSipProfile.getAudioFormats()) {
+			for (SipAudioFormat audioFormat : sipProfile.getAudioFormats()) {
 				AttributeField attributeField = new AttributeField();
 				attributeField.setName(SdpConstants.RTPMAP);
 				attributeField.setValue(audioFormat.getSdpField());
@@ -660,7 +672,7 @@ public class SipMessageHandler {
 
 			AttributeField rtcpAttribute = new AttributeField();
 			rtcpAttribute.setName("rtcp");
-			rtcpAttribute.setValue(localSipProfile.getLocalAudioRtcpPort() + "");
+			rtcpAttribute.setValue(sipProfile.getLocalAudioRtcpPort() + "");
 			audioDescription.addAttribute(rtcpAttribute);
 
 			mediaDescriptions.add(audioField);
@@ -668,21 +680,21 @@ public class SipMessageHandler {
 		}
 
 		// Add video formats
-		if(localSipProfile.getVideoFormats().size() > 0){
+		if(sipProfile.getVideoFormats().size() > 0){
 			MediaField videoField = new MediaField();
 			videoField.setMediaType("video");
-			videoField.setPort(localSipProfile.getLocalVideoRtpPort());
+			videoField.setPort(sipProfile.getLocalVideoRtpPort());
 			videoField.setProtocol(SdpConstants.RTP_AVP);
 
 			Vector<String> videoFormats = new Vector<String>();
-			for (SipVideoFormat videoFormat : localSipProfile.getVideoFormats()) {
+			for (SipVideoFormat videoFormat : sipProfile.getVideoFormats()) {
 				videoFormats.add(videoFormat.getFormat() + "");
 			}
 			videoField.setMediaFormats(videoFormats);
 
 			MediaDescriptionImpl videoDescription = new MediaDescriptionImpl();
 
-			for (SipVideoFormat videoFormat : localSipProfile.getVideoFormats()) {
+			for (SipVideoFormat videoFormat : sipProfile.getVideoFormats()) {
 				AttributeField attributeField = new AttributeField();
 				attributeField.setName(SdpConstants.RTPMAP);
 				attributeField.setValue(videoFormat.getSdpField());
@@ -695,7 +707,7 @@ public class SipMessageHandler {
 
 			AttributeField rtcpAttribute = new AttributeField();
 			rtcpAttribute.setName("rtcp");
-			rtcpAttribute.setValue(localSipProfile.getLocalVideoRtcpPort() + "");
+			rtcpAttribute.setValue(sipProfile.getLocalVideoRtcpPort() + "");
 			videoDescription.addAttribute(rtcpAttribute);
 
 			mediaDescriptions.add(videoField);
@@ -720,4 +732,5 @@ public class SipMessageHandler {
 		currentCallID = null;
 		callSequence = 1L;
 	}
+
 }

@@ -138,6 +138,7 @@ public class UDPMessageProcessor extends MessageProcessor {
 				
 			}
 		} catch (SocketException ex) {
+			ex.printStackTrace();
 			throw new IOException(ex.getMessage());
 		}
 	}

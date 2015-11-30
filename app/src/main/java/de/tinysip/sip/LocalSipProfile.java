@@ -97,6 +97,14 @@ public class LocalSipProfile {
 		this.tag = AuthorizationDigest.getHexString(rand.getBytes());
 	}
 
+	public void setSipPassword(String sipPassword) {
+		this.sipPassword = sipPassword;
+	}
+
+	public void setSipDomain(String sipDomain) {
+		this.sipDomain = sipDomain;
+	}
+
 	/**
 	 * Create a LocalSipProfile for the local user, specifying the user name, his sip domain, password and the sip port.
 	 * 

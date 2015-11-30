@@ -28,6 +28,8 @@ package android.javax.sip;
 import android.javax.sip.address.AddressFactory;
 import android.javax.sip.message.MessageFactory;
 import android.javax.sip.header.HeaderFactory;
+import android.util.Log;
+
 import java.util.*;
 import java.lang.reflect.Constructor;
 
@@ -141,6 +143,8 @@ public class SipFactory {
 
 		String ipAddress = properties.getProperty("android.javax.sip.IP_ADDRESS");
 		String name = properties.getProperty("android.javax.sip.STACK_NAME");
+		Log.d("SipStack", "createSipStack(Properties properties) - ipAddress:" + (ipAddress != null ? ipAddress : "null"));
+		Log.d("SipStack", "createSipStack(Properties properties) - name:" + (name != null ? name : "null"));
 		if (name == null ) throw new PeerUnavailableException("Missing android.javax.sip.STACK_NAME property");
 		// IP address was not specified in the properties.
 		// This means that the architecture supports a single sip stack 
