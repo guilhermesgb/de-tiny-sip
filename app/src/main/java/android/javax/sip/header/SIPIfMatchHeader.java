@@ -1,8 +1,8 @@
 /**
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  * Unpublished - rights reserved under the Copyright Laws of the United States.
- * Copyright C 2003 Sun Microsystems, Inc. All rights reserved.
- * Copyright C 2005 BEA Systems, Inc. All rights reserved.
+ * Copyright (C) 2003 Sun Microsystems, Inc. All rights reserved.
+ * Copyright (C) 2005 BEA Systems, Inc. All rights reserved.
  *
  * Use is subject to license terms.
  *
@@ -31,7 +31,7 @@ import android.javax.sip.header.Header;
  * <p> 
  * The SIP-If-Match header is used by a client (event state publisher) in 
  * a PUBLISH request, to update previously published event state. The value is 
- * obtained from the server in a {@link javax.sip.header.SIPETagHeader} in a 
+ * obtained from the server in a {@link android.javax.sip.header.SIPETagHeader} in a 
  * 2xx response to a previous PUBLISH. 
  * <p>
  * Sample syntax:<br><code>SIP-If-Match: dx200xyz</code>

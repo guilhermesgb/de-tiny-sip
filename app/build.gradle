@@ -4,7 +4,7 @@ android {
     buildToolsVersion "23.0.1"
 
     defaultConfig {
-        applicationId "android.de.tinysip.sipdemo"
+        applicationId "de.tinysip.sipdemo"
         minSdkVersion 7
         targetSdkVersion 7
     }

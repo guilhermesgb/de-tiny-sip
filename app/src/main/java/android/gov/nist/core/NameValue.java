@@ -173,7 +173,7 @@ public class NameValue extends GenericObject implements Entry<String,String> {
 				return buffer;
 			} else if ( value.toString().length() == 0) {
 				// opaque="" bug fix - pmusgrave
-				/*if (name.toString().equals(gov.nist.javax.sip.header.ParameterNames.OPAQUE))
+				/*if (name.toString().equals(android.gov.nist.gnjvx.sip.header.ParameterNames.OPAQUE))
 					return name + separator + quotes + quotes;
 				else
 					return name;*/

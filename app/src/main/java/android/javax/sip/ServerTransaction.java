@@ -1,8 +1,8 @@
 /**
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  * Unpublished - rights reserved under the Copyright Laws of the United States.
- * Copyright C 2003 Sun Microsystems, Inc. All rights reserved.
- * Copyright C 2005 BEA Systems, Inc. All rights reserved.
+ * Copyright (C) 2003 Sun Microsystems, Inc. All rights reserved.
+ * Copyright (C) 2005 BEA Systems, Inc. All rights reserved.
  *
  * Use is subject to license terms.
  *
@@ -28,7 +28,7 @@ import android.javax.sip.message.Response;
  * messages to fire Request events to the SipListener on a specific server 
  * transaction and by a User Agent Server application to send Response 
  * messages to a User Agent Client application. This interfaces enables an 
- * application to send a {@link javax.sip.message.Response} to a recently 
+ * application to send a {@link android.javax.sip.message.Response} to a recently 
  * received Request in a transaction stateful way.
  * <p>
  * A new server transaction is generated in the following ways:
@@ -74,7 +74,7 @@ public interface ServerTransaction extends Transaction {
     /**
      * Sends the Response to a Request which is associated with this 
      * ServerTransaction. When an application wishes to send a Response, it 
-     * creates a Response using the {@link javax.sip.message.MessageFactory} and 
+     * creates a Response using the {@link android.javax.sip.message.MessageFactory} and 
      * then passes that Response to this method. The Response message gets sent out on 
      * the network via the ListeningPoint information that is associated with
      * the SipProvider of this ServerTransaction.

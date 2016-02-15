@@ -1,8 +1,8 @@
 /**
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  * Unpublished - rights reserved under the Copyright Laws of the United States.
- * Copyright C 2003 Sun Microsystems, Inc. All rights reserved.
- * Copyright C 2005 BEA Systems, Inc. All rights reserved.
+ * Copyright (C) 2003 Sun Microsystems, Inc. All rights reserved.
+ * Copyright (C) 2005 BEA Systems, Inc. All rights reserved.
  *
  * Use is subject to license terms.
  *
@@ -53,7 +53,7 @@ import android.javax.sip.InvalidArgumentException;
  * (that is, globally unique). Beyond this requirement, the precise format of
  * the branch token is implementation-defined. JSIP defines a convenience 
  * function to generate unique branch identifiers at 
- * {@link javax.sip.Transaction#getBranchId()}
+ * {@link android.javax.sip.Transaction#getBranchId()}
  * <p>
  * A common way to create the branch value is to compute a cryptographic hash
  * of the To tag, From tag, Call-ID header field, the Request-URI of the
@@ -314,7 +314,7 @@ public interface ViaHeader extends Parameters, Header {
     
     /**
      * Compare this ViaHeader for equality with another. This method 
-     * overrides the equals method in javax.sip.Header. This method specifies 
+     * overrides the equals method in android.javax.sip.Header. This method specifies 
      * object equality as outlined by  
      * <a href = "http://www.ietf.org/rfc/rfc3261.txt">RFC3261</a>. 
      * Two Via header fields are equal if their sent-protocol and sent-by fields 

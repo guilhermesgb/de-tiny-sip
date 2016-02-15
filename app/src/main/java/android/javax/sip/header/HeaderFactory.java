@@ -1,8 +1,8 @@
 /**
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  * Unpublished - rights reserved under the Copyright Laws of the United States.
- * Copyright C 2003 Sun Microsystems, Inc. All rights reserved.
- * Copyright C 2005 BEA Systems, Inc. All rights reserved.
+ * Copyright (C) 2003 Sun Microsystems, Inc. All rights reserved.
+ * Copyright (C) 2005 BEA Systems, Inc. All rights reserved.
  *
  * Use is subject to license terms.
  *
@@ -34,7 +34,7 @@ import java.util.*;
  * This interface provides factory methods that allow an application to create 
  * Header object from a particular implementation of JAIN SIP. This class is a 
  * singleton and can be retrieved from the 
- * {@link javax.sip.SipFactory#createHeaderFactory()}.
+ * {@link android.javax.sip.SipFactory#createHeaderFactory()}.
  *
  * @author BEA Systems, NIST
  * @version 1.2

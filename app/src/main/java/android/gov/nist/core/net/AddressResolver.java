@@ -38,7 +38,7 @@ import android.javax.sip.address.Hop;
  * the Hop that it was passed (fixing up the port if necessary). 
  * However, this behavior can be overriden. To override
  * implement this interface and register it with the stack using 
- * {@link gov.nist.javax.sip.SipStackExt#setAddressResolver(AddressResolver)}. 
+ * {@link android.gov.nist.gnjvx.sip.SipStackExt#setAddressResolver(AddressResolver)}. 
  * This interface will be incorporated into version 2.0 of the JAIN-SIP Specification.
  * 
  * @since 2.0

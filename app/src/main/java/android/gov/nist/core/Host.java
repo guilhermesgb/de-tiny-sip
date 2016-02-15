@@ -86,7 +86,7 @@ public class Host extends GenericObject {
 		addressType = HOSTNAME;
 
 		stripAddressScopeZones
-			= Boolean.getBoolean("gov.nist.core.STRIP_ADDR_SCOPES");
+			= Boolean.getBoolean("android.gov.nist.core.STRIP_ADDR_SCOPES");
 	}
 
 	/** Constructor given host name or IP address.
@@ -96,7 +96,7 @@ public class Host extends GenericObject {
 			throw new IllegalArgumentException("null host name");
 
 		stripAddressScopeZones
-			= Boolean.getBoolean("gov.nist.core.STRIP_ADDR_SCOPES");
+			= Boolean.getBoolean("android.gov.nist.core.STRIP_ADDR_SCOPES");
 
 		setHost(hostName, IPV4ADDRESS);
 	}
@@ -107,7 +107,7 @@ public class Host extends GenericObject {
 	 */
 	public Host(String name, int addrType) {
 		stripAddressScopeZones
-			= Boolean.getBoolean("gov.nist.core.STRIP_ADDR_SCOPES");
+			= Boolean.getBoolean("android.gov.nist.core.STRIP_ADDR_SCOPES");
 
 		setHost(name, addrType);
 	}

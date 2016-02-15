@@ -1,8 +1,8 @@
 /**
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  * Unpublished - rights reserved under the Copyright Laws of the United States.
- * Copyright C 2003 Sun Microsystems, Inc. All rights reserved.
- * Copyright C 2005 BEA Systems, Inc. All rights reserved.
+ * Copyright (C) 2003 Sun Microsystems, Inc. All rights reserved.
+ * Copyright (C) 2005 BEA Systems, Inc. All rights reserved.
  *
  * Use is subject to license terms.
  *
@@ -31,7 +31,7 @@ package android.javax.sip.header;
  * maintained by the dialog layer and should not be manupulated by the 
  * application. For example the SipProvider queries the dialog for Route 
  * assignment and adds these to the outgoing message as needed. The 
- * {@link javax.sip.address.Router} may be used by the application to determine 
+ * {@link android.javax.sip.address.Router} may be used by the application to determine 
  * the initial Route of the message.
  *
  * @see RecordRouteHeader
